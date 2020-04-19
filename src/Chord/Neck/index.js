@@ -29,17 +29,17 @@ const getBarreOffset = (strings, frets, baseFret, capo) =>
   ? frets[0] === 1 || capo ? (baseFret > 9 ? -12 : -11) : (baseFret > 9 ? -10 : -7)
   : frets[0] === 1 || capo ? (baseFret > 9 ? -1 : 0) : (baseFret > 9 ? 3 : 4)
 
-const Neck = ({ tuning, frets, strings, fretsOnChord, baseFret, capo, lite }) => {
+const Neck = ({ tuning, frets, strings, fretsOnChord, baseFret, capo, lite, color }) => {
   return <g>
     <path
-      stroke='#444'
+      stroke={color}
       strokeWidth='0.25'
       strokeLinecap='square'
       strokeLinejoin='square'
       d={getNeckPath(strings, fretsOnChord)} />
     { baseFret === 1
       ? <path
-        stroke='#444'
+        stroke={color}
         strokeWidth='2'
         strokeLinecap='round'
         strokeLinejoin='round'
@@ -47,7 +47,7 @@ const Neck = ({ tuning, frets, strings, fretsOnChord, baseFret, capo, lite }) =>
       />
       : <text
         fontSize='0.25rem'
-        fill='#444'
+        fill={color}
         fontFamily='Verdana'
         x={getBarreOffset(strings, frets, baseFret, capo)}
         y='8'
@@ -58,7 +58,7 @@ const Neck = ({ tuning, frets, strings, fretsOnChord, baseFret, capo, lite }) =>
           <text
             key={index}
             fontSize='0.3rem'
-            fill='#444'
+            fill={color}
             fontFamily='Verdana'
             textAnchor='middle'
             x={offsets[strings].x + index * 10}
@@ -77,7 +77,8 @@ Neck.propTypes = {
   strings: PropTypes.number.isRequired,
   baseFret: PropTypes.oneOf([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 ]),
   fretsOnChord: PropTypes.number.isRequired,
-  lite: PropTypes.bool
+  lite: PropTypes.bool,
+  color: PropTypes.string.isRequired
 }
 
 Neck.defaultProps = {

@@ -10,7 +10,7 @@ const onlyDots = chord =>
   .map((f, index) => ({ position: index, value: f }))
   .filter(f => !chord.barres || chord.barres.indexOf(f.value) === -1)
 
-const Chord = ({ chord, instrument, lite }) =>
+const Chord = ({ chord, instrument, lite, color }) =>
   chord ? <svg
     width='100%'
     xmlns='http://www.w3.org/2000/svg'
@@ -26,6 +26,7 @@ const Chord = ({ chord, instrument, lite }) =>
         fretsOnChord={instrument.fretsOnChord}
         baseFret={chord.baseFret}
         lite={lite}
+        color={color}
       />
 
       {chord.barres && chord.barres.map((barre, index) =>
@@ -36,6 +37,7 @@ const Chord = ({ chord, instrument, lite }) =>
           finger={chord.fingers && chord.fingers[chord.frets.indexOf(barre)]}
           frets={chord.frets}
           lite={lite}
+          color={color}
         />)}
 
       {onlyDots(chord).map(fret => (
@@ -46,6 +48,7 @@ const Chord = ({ chord, instrument, lite }) =>
           strings={instrument.strings}
           finger={chord.fingers && chord.fingers[fret.position]}
           lite={lite}
+          color={color}
         />
       ))}
     </g>
@@ -54,11 +57,13 @@ const Chord = ({ chord, instrument, lite }) =>
 Chord.propTypes = {
   chord: PropTypes.any,
   instrument: instrumentPropTypes,
-  lite: PropTypes.bool
+  lite: PropTypes.bool,
+  color: PropTypes.string
 }
 
 Chord.defaultProps = {
-  lite: false
+  lite: false,
+  color: '#444'
 }
 
 export default Chord

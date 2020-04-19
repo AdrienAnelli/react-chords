@@ -25,7 +25,7 @@ const onlyBarres = (frets, barre) =>
   frets.map((f, index) => ({ position: index, value: f }))
   .filter(f => f.value === barre)
 
-const Barre = ({ barre, frets, capo, finger, lite }) => {
+const Barre = ({ barre, frets, capo, finger, lite, color }) => {
   const strings = frets.length
   const barreFrets = onlyBarres(frets, barre)
 
@@ -46,13 +46,13 @@ const Barre = ({ barre, frets, capo, finger, lite }) => {
             m -4, 0
             a 4,4 0 1,1 8,0
           `}
-            fill='#555'
+            fill={color}
             fillOpacity={0.2}
             transform='rotate(-90)'
           />
         </g>
         <rect
-          fill='#555'
+          fill={color}
           x={fretXPosition[strings][0]}
           y={fretYPosition[barre - 1]}
           width={(strings - 1) * 10}
@@ -67,7 +67,7 @@ const Barre = ({ barre, frets, capo, finger, lite }) => {
             m -4, 0
             a 4,4 0 1,1 8,0
           `}
-            fill='#555'
+            fill={color}
             fillOpacity={0.2}
             transform='rotate(90)'
           />
@@ -78,8 +78,8 @@ const Barre = ({ barre, frets, capo, finger, lite }) => {
         <circle
           key={fret.position}
           strokeWidth='0.25'
-          stroke='#444'
-          fill='#444'
+          stroke={color}
+          fill={color}
           cx={getStringPosition(strings - fret.position, strings)}
           cy={positions.fret[fret.value]}
           r={4}
@@ -87,7 +87,7 @@ const Barre = ({ barre, frets, capo, finger, lite }) => {
         )
       }
       <rect
-        fill='#444'
+        fill={color}
         x={fretXPosition[strings][string1]}
         y={y}
         width={width}
@@ -115,7 +115,8 @@ Barre.propTypes = {
   barre: PropTypes.number,
   capo: PropTypes.bool,
   lite: PropTypes.bool,
-  finger: PropTypes.oneOf([ 0, 1, 2, 3, 4, 5 ])
+  finger: PropTypes.oneOf([ 0, 1, 2, 3, 4, 5 ]),
+  color: PropTypes.string.isRequired
 }
 
 export default Barre

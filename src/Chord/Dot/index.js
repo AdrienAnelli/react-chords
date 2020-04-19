@@ -20,11 +20,11 @@ const radius = {
   fret: 4
 }
 
-const Dot = ({ string, fret, finger, strings, lite }) =>
+const Dot = ({ string, fret, finger, strings, lite, color }) =>
   fret === -1
     ? <text
       fontSize='0.7rem'
-      fill='#444'
+      fill={color}
       fontFamily='Verdana'
       textAnchor='middle'
       x={getStringPosition(string, strings)}
@@ -33,8 +33,8 @@ const Dot = ({ string, fret, finger, strings, lite }) =>
     : (<g>
       <circle
         strokeWidth='0.25'
-        stroke='#444'
-        fill={fret === 0 ? 'transparent' : '#444'}
+        stroke={color}
+        fill={fret === 0 ? 'transparent' : color}
         cx={getStringPosition(string, strings)}
         cy={positions.fret[fret]}
         r={fret === 0 ? radius['open'] : radius['fret']}
@@ -55,7 +55,8 @@ Dot.propTypes = {
   fret: PropTypes.number,
   finger: PropTypes.oneOf([ 0, 1, 2, 3, 4, 5 ]),
   strings: PropTypes.number.isRequired,
-  lite: PropTypes.bool
+  lite: PropTypes.bool,
+  color: PropTypes.string.isRequired
 }
 
 Dot.defaultProps = {
